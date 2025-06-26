@@ -1,0 +1,149 @@
+/* Basic layout styling */
+body, html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.landing-page {
+  color: #333;
+}
+
+/* Header */
+.landing-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid #ddd;
+  z-index: 1000;
+}
+
+.site-title {
+  font-size: 2rem;
+  color: #1e3a8a;
+}
+
+.landing-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.landing-links li a,
+.landing-links li button {
+  text-decoration: none;
+  background: none;
+  border: none;
+  color: #1e3a8a;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.landing-links li a:hover,
+.landing-links li button:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.hero-section {
+  background-image:url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.hero-text h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  background-color: #ffce00;
+  color: #000;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Features Section */
+.features-section {
+  padding: 80px 40px;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.features-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+
+.feature-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 300px;
+  padding: 20px;
+  text-align: left;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* About Section */
+.about-section {
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  color: #444;
+}
+
+.about-section img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Footer */
+.footer {
+  background: #1e3a8a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
