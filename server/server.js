@@ -18,14 +18,14 @@ app.use(express.json())
 
 const authRoutes=require('./routes/auth');
 const commentRoutes=require('./routes/comment');
-const favoriateRoutes=require('./routes/favoriate');
+const favoriteRoutes=require('./routes/favorite');
 const likeRoutes=require('./routes/likes');
 const postRoutes=require('./routes/post');
 
 
 app.use('/api/auth',authRoutes);
 app.use('/api/comment',commentRoutes);
-app.use('/api/favoriate',favoriateRoutes);
+app.use('/api/favoriate',favoriteRoutes);
 app.use('/api/like',likeRoutes);
 app.use('/api/post',postRoutes);
 
