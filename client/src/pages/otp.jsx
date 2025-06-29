@@ -26,14 +26,15 @@ useEffect(() => {
     return () => clearTimeout(timeout);
   }
 }, [error, navigate]);
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!otp) {
       alert("Please enter the OTP.");
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/verify-otp', {
+      const response = await fetch('http://localhost:5000/api/auth/verify-otp-register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

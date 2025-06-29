@@ -87,9 +87,12 @@
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 10px;
 }
 
-button[type="submit"]:hover {
+.register-button:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
 }
@@ -114,5 +117,45 @@ label {
   font-size: 20px;
   color: #4a5568;
   margin-bottom: 20%;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
+
+.register-form {
+  background: #ffffff;
+  width: 100%;
+  max-width: 320px; /* reduced from 420px */
+  text-align: center;
+  justify-content: center;
+  padding: 30px 20px; /* reduced padding */
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Title */
+.register-form h2 {
+  margin-bottom: 20px;
+  color: #2d3748;
+  font-size: 20px; /* reduced font size */
+  font-weight: 600;
+}
+
+/* Input group */
+.form-group {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px; /* reduced padding */
+  font-size: 14px;
+  border: 1.2px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+/* Submit Button */
+
+
 

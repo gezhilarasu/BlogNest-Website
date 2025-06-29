@@ -4,27 +4,26 @@ import './Register.css';
 
 function Register()
 {
-    const [username,setusername]=useState('');
+    const [name,setusername]=useState('');
     const [email,setemail]=useState('');
     const [password,setpassword]=useState('');
     const [confirmPassword,setconfirmPassword]=useState('');
-
-    const handlesubmit=(e)=>{
+    const navigate=useNavigate();
+    const handlesubmit=async (e)=>{
         e.preventDefault();
-        const navigate=useNavigate();
+        
         if(password!==confirmPassword){
             alert("Passwords do not match");
             return;
         }
-
         try{
-                const response=fetch('http://localhost:5000/api/auth/register',{
+                const response= await fetch('http://localhost:5000/api/auth/register',{
                     method:'POST', 
                     headers:{
                         'Content-Type':'application/json',
                     },
                     body:JSON.stringify({
-                        username,
+                        name,
                         email,
                         password
                     }
@@ -57,7 +56,7 @@ function Register()
                     <label>Username:</label>
                     <input 
                         type="text" 
-                        value={username} 
+                        value={name} 
                         onChange={(e) => setusername(e.target.value)} 
                         required 
                     />

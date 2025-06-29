@@ -14,7 +14,7 @@ function Login() {
           headers: {
             'Content-Type': 'application/json'
           },
-          body:JSON.stringfy({
+          body:JSON.stringify({
             email,
             password
           })
@@ -28,6 +28,11 @@ function Login() {
           alert("Login failed. Please check your credentials.");
       }
 }
+      const handleforget=async()=>{
+        navigate('/mail');
+      }
+      
+    
 
   return (
     <div className="login-container">
@@ -48,7 +53,7 @@ function Login() {
           required
         />
         <button type="submit">Login</button>
-        <p className="forgot">Forgot your password?</p>
+        <button type="submit"onClick={handleforget} className="forget">Forgot your password?</button>
       </form>
     </div>
   );
