@@ -12,15 +12,22 @@ mongoose.connect(process.env.MONGODB_KEY,{
 }).catch((error)=>{
     console.error("MongoDB connection error:", error);
 });
-
 const app=express();
 app.use(cors());
 app.use(express.json())
 
 const authRoutes=require('./routes/auth');
+const commentRoutes=require('./routes/comment');
+const favoriateRoutes=require('./routes/favoriate');
+const likeRoutes=require('./routes/likes');
+const postRoutes=require('./routes/post');
+
 
 app.use('/api/auth',authRoutes);
-
+app.use('/api/comment',commentRoutes);
+app.use('/api/favoriate',favoriateRoutes);
+app.use('/api/like',likeRoutes);
+app.use('/api/post',postRoutes);
 
 
 const PORT=process.env.PORT||5000;

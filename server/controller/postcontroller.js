@@ -1,0 +1,105 @@
+const {Post}=require('../models/models');
+
+const createPost=async(req,res)=>{
+
+    const {title,category,content,image}=req.body;
+    const userId=req.user.userId;
+    console.log("Creating post:", { title, category, content, userId });
+    try{
+        const post=new Post({
+            userId,
+            title,
+            category,
+            content,
+            image:{
+                data:image.data,
+                contentType:image.contentType
+            }
+        })
+        await post.save();
+        return res.status(201).json({message:"Post created successfully",post});
+    }
+    catch(error)
+    {
+        console.error("Error creating post:", error);
+        return res.status(500).json({message:"Internal server error"});
+    }
+}
+
+const deletePost=async(req,res)=>{
+    const postId=req.params.id;
+    try{
+        const existingpost=await Post.findById(postId);
+        if(!existingpost)
+        {
+            return res.status(404).json({message:"Post not found"});
+        }
+        await Post.findByIdAndDelete(PostId);
+        return res.status(200).json({message:"Post deleted successfully"});
+    }
+    catch(error)
+    {
+        console.error("Error deleting post:", error);
+        return res.status(500).json({message:"Internal server error"});
+    }
+}
+
+const getPostsByuser=async(req,res)=>{
+    const userId=req.user.userId;
+
+    try{
+        const posts=await Post.find({userId}).sort({createdAt:-1});
+        if(posts.length===0)
+        {
+            return res.status(404).json({message:"No posts found"});
+        }
+        console.log("Posts retrieved:", posts);
+        return res.status(200).json({message:"Posts retrieved successfully",posts});
+
+    }
+    catch(error)
+    {
+        console.error("Error retrieving posts:", error);
+        return res.status(500).json({message:"Internal server error"});
+    }
+}
+
+const getPostById=async(req,res)=>{
+    const postId=req.params.id;
+    try{
+            const post = await Post.findByIdAndUpdate(
+                postId,
+                { $inc: { views: 1 } },
+                { new: true });        
+        if(!post)
+        {
+            return res.status(404).json({message:"Post not found"});
+        }
+        console.log("Post retrieved:", post);
+        return res.status(200).json({message:"Post retrieved successfully",post});
+    }
+    catch(error)
+    {
+        console.error("Error retrieving post:", error);
+        return res.status(500).json({message:"Internal server error"});
+    }
+}
+
+const getallposts=async(req,res)=>{
+    try{
+        const posts=await Post.find().sort({createdAt:-1});
+        if(posts.length===0)
+        {
+            return res.status(404).json({message:"No posts found"});
+        }
+        console.log("All posts retrieved:", posts);
+        return res.status(200).json({message:"All posts retrieved successfully",posts});    
+    }
+    catch(error)
+    {
+        console.error("Error retrieving all posts:", error);
+        return res.status(500).json({message:"Internal server error"});
+    }
+}
+module.exports={createPost,deletePost,getPostsByuser,getPostById,getallposts};
+

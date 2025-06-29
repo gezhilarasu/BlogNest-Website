@@ -124,7 +124,6 @@ const favoriteSchema = new mongoose.Schema({
 });
 
 
-
 const User = mongoose.model('User', userSchema);
 const PendingUser = mongoose.model('PendingUser', pendingUserSchema);
 const Post = mongoose.model('Post', postSchema);
