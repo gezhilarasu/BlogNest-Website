@@ -5,5 +5,5 @@ const verifyToken=require('../middleware/verify_token');
 const { incrementLike } = require('../controller/likescontroller');
 
 route.patch('/likeincrement/:id',verifyToken,incrementLike);
-module.export=route;
+module.exports=route;
 
