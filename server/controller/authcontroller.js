@@ -1,4 +1,4 @@
-const {User,PendingUser}=require('../models/models');
+const {User,PendingUser,Post,Favorite,Comment}=require('../models/models');
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const nodemailer=require('nodemailer');
@@ -177,13 +177,35 @@ const verify_otp_reset = async (req, res) => {
     await user.save();
     
 
-    return res.status(200).json({ message: "OTP verified, proceed to reset password" });
+    return res.status(200).json({ message: "OTP verified, Password reset successfully" });
   } catch (err) {
     console.error("OTP verification error:", err);
     return res.status(500).json({ message: "Server error" });
   }
 };
 
+const deleteUserAccount = async (req, res) => {
+  const userId = req.user.userId;
 
-module.exports={registerUser,loginUser,verifyOtp_register,password_reset,verify_otp_reset};
+  try {
+    // 1. Delete user's posts
+    await Post.deleteMany({ userId });
+
+    // 2. Delete user's comments
+    await Comment.deleteMany({ userId });
+
+    // 3. Delete user's favorites (likes)
+    await Favorite.deleteMany({ userId });
+
+    // 4. Finally, delete the user
+    await User.findByIdAndDelete(userId);
+
+    return res.status(200).json({ message: "Account and all related data deleted" });
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports={registerUser,loginUser,verifyOtp_register,password_reset,verify_otp_reset,deleteUserAccount};
 
