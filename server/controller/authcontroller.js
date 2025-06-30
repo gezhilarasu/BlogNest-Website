@@ -56,6 +56,8 @@ const registerUser=async(req,res)=>{
 
 const verifyOtp_register = async (req, res) => {
   const {otp,email}  = req.body;
+  console.log("Verifying OTP for email:", email);
+  console.log("Received OTP:", otp);
   try {
     const pendingUser = await PendingUser.findOne({ email });
 
