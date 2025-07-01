@@ -103,7 +103,7 @@ const loginUser=async(req,res)=>{
             id:existingUser._id,
             email:existingUser.email
             },
-            process.env.JWT_SECRET,{expiresIn:'10'})
+            process.env.JWT_SECRET,{expiresIn:'2d'})
         console.log("BlogNest_Token:",BlogNest_Token);
         return res.status(200).json({message:"Login successful",token:BlogNest_Token});
     }

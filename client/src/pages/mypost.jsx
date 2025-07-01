@@ -1,17 +1,16 @@
-import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import './mainBlog.css'; 
-import Navbar from '../components/navbar'; 
 import {useState,useEffect} from 'react';
 
-function Blog() {
+function MyPosts() {
   const navigate = useNavigate();
   const [post,setPost]=useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/post/allpost', {
+        const response = await fetch('http://localhost:5000/api/post/mypost', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('BlogNest_token')}`,
@@ -126,23 +125,10 @@ const getImageUrl = (imageData) => {
   };
 
   return (
-     <><Navbar />
+     <>
      <div className="container">
 
-          <header>
-              <h1 className="hero-title">Discover Stories</h1>
-              <p className="hero-subtitle">
-                  Explore insights, ideas, and inspiration from our community of writers
-              </p>
-
-              <div className="search-bar">
-                  <input
-                      type="text"
-                      className="search-input"
-                      placeholder="Search articles, topics, or authors..."
-                      id="searchInput" />
-              </div>
-          </header>
+          
 
           <main className="blog-grid" id="blogGrid">
               {post.length > 0 ? (
@@ -215,4 +201,4 @@ const getImageUrl = (imageData) => {
   );
 }
 
-export default Blog;
+export default MyPosts;

@@ -10,8 +10,14 @@ const {
   getallposts
 } = require('../controller/postcontroller');
 
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+module.exports = upload;
+
 // Create a post (authenticated)
-router.post('/createpost', verifyToken, createPost);
+router.post('/createpost', verifyToken,upload.single('image'),createPost);
 
 // Delete a post by ID (authenticated)
 router.delete('/deletepost/:id', verifyToken, deletePost);
