@@ -6,13 +6,7 @@
 
 
 
-.register-container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to right, #f7f9fc, #edf2f7);
-}
+
 
 .register-header   {
   
