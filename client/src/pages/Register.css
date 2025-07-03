@@ -18,10 +18,10 @@
   
  
   justify-content: center;
-  height: 100vh;
+  
   text-align: center;
   display: flex;
-  align-items:center;
+  
   padding: 20px;               
 }
 
@@ -156,6 +156,7 @@ label {
 }
 
 /* Submit Button */
+
 
 
 

@@ -21,6 +21,7 @@ function Login() {
       });
       if(response.ok){
           const data=await response.json();
+           console.log(data.token);
           localStorage.setItem('BlogNest_token', data.token);
           navigate('/mainBlog'); 
       }

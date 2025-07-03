@@ -1,5 +1,6 @@
 import React, {useState}from 'react';
 import {useNavigate} from 'react-router-dom';
+import './mail.css';
 
 function Mail()
 {
@@ -25,7 +26,7 @@ function Mail()
       }
     }
     return(
-        <div>
+        <div className="mail-page-container">
             <form onSubmit={handlesubmit}>
                 <label>Mail</label>
                 <input type="email"
@@ -34,7 +35,7 @@ function Mail()
                         value={email}
                         onChange={(e)=>setEmail(e.target.value)}
                  ></input>
-                 <button type="submit">ENTER</button>
+                 <button type="submit"className="mail-button">ENTER</button>
             </form>
         </div>
     )

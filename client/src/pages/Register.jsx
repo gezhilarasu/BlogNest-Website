@@ -49,7 +49,7 @@ function Register()
     }
     return(
         
-            <div className="register-header">
+        <div className="register-header">
             <form onSubmit={handlesubmit}>
                 <h2>Register</h2>
                 <div className="form-group">
@@ -93,7 +93,7 @@ function Register()
                 </div>
                 <button className="register-button"type="submit">Register</button>
             </form>
-            </div>
+        </div>
         
     )
 }

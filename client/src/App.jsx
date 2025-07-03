@@ -5,7 +5,9 @@ import OTPVerification from './pages/otp'
 import Blog from './pages/mainBlog'
 import Mail from './pages/mail';
 import ResetPassword from './pages/newpassword';
+import CreatePost from './pages/post';
 import Token_verify from './services/Token_verify';
+import MyPosts from './pages/mypost'
 import { BrowserRouter as RouterBrowser, Routes, Route } from 'react-router-dom';
 
 function App(){
@@ -20,6 +22,8 @@ function App(){
         <Route path='/mainBlog' element={<Blog/>}></Route>
         <Route path='/mail' element={<Mail/>}></Route>
         <Route path='/newpassword' element={<ResetPassword/>}></Route>
+        <Route path='/createpost' element={<CreatePost/>}></Route>
+        <Route path='/myposts' element={<MyPosts/>}></Route>
       </Routes>
     </RouterBrowser>
   )

@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {useNavigate,useLocation} from 'react-router-dom';
+import './newpassword.css';
 
 function ResetPassword()
 {
@@ -39,11 +40,12 @@ function ResetPassword()
     }
 
     return(
-        <div>
+        <div className="reset-password">
             <form onSubmit={handlesubmit}>
                 <label>New Password</label>
                 <input type='text'
                 required
+                className="newpass-input"
                 placeholder="enter new password"
                 value={password}
                 onChange={(e)=>setpassword(e.target.value)}
@@ -52,6 +54,7 @@ function ResetPassword()
                 <label>Conform Password</label>
                 <input type='text'
                 required
+                className="newpass-input"
                 placeholder="enter conform password"
                 value={conformpassword}
                 onChange={(e)=>setconformPassword(e.target.value)}
@@ -60,11 +63,12 @@ function ResetPassword()
                 <label>Enter otp</label>
                 <input type='text'
                 required
+                className="newpass-input"
                 placeholder="enter otp"
                 value={otp}
                 onChange={(e)=>setotp(e.target.value)}
                 ></input>
-                <button type="submit">enter</button>
+                <button type="submit" className="newpass-btn">enter</button>
 
             </form>
         </div>
