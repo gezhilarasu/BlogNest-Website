@@ -60,7 +60,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category: {       // typo fixed from "catogory"
+    category: {
         type: String,
         required: true
     },
@@ -69,8 +69,8 @@ const postSchema = new mongoose.Schema({
         required: true
     },
     image: {
-        type: Buffer,
-        contentType:String
+        data: Buffer,
+        contentType: String
     },
     views: {
         type: Number,
@@ -89,7 +89,6 @@ const postSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-
 
 const commentSchema = new mongoose.Schema({
     postId: {

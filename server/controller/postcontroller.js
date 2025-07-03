@@ -1,30 +1,35 @@
 const {Post}=require('../models/models');
 
-const createPost=async(req,res)=>{
-
-    const {title,category,content,image}=req.body;
-    const userId=req.user.userId;
-    console.log("Creating post:", { title, category, content, userId });
-    try{
-        const post=new Post({
+const createPost = async (req, res) => {
+    const { title, category, content } = req.body;
+    
+    // Fix: Get userId from the decoded token
+    const userId = req.user.id; // Use 'id' instead of '_id' based on your JWT payload
+    
+    try {
+        const post = new Post({
             userId,
             title,
             category,
             content,
-            image:{
-                data:image.data,
-                contentType:image.contentType
-            }
-        })
+            // Fix: Structure the image object correctly to match schema
+            ...(req.file && {
+                image: {
+                    data: req.file.buffer,
+                    contentType: req.file.mimetype
+                }
+            })
+        });
+
         await post.save();
-        return res.status(201).json({message:"Post created successfully",post});
+        res.status(201).json({ message: 'Post created successfully', post });
+    } catch (err) {
+        console.error('Error creating post:', err);
+        res.status(500).json({ message: 'Internal server error' });
     }
-    catch(error)
-    {
-        console.error("Error creating post:", error);
-        return res.status(500).json({message:"Internal server error"});
-    }
-}
+};
+
+
 
 const deletePost=async(req,res)=>{
     const postId=req.params.id;
@@ -45,7 +50,7 @@ const deletePost=async(req,res)=>{
 }
 
 const getPostsByuser=async(req,res)=>{
-    const userId=req.user.userId;
+    const userId=req.user.id;
 
     try{
         const posts=await Post.find({userId}).sort({createdAt:-1});

@@ -13,10 +13,7 @@ mongoose.connect(process.env.MONGODB_KEY,{
     console.error("MongoDB connection error:", error);
 });
 const app=express();
-app.use(cors({
-  origin: 'http://localhost:5173', // Replace with your actual frontend URL and port
-  credentials: true                // If you're using cookies or headers for auth
-}));
+app.use(cors());
 app.use(express.json())
 
 const authRoutes=require('./routes/auth');
