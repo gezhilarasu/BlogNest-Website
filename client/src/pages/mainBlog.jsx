@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './mainBlog.css'; 
 import Navbar from '../components/navbar'; 
-import {useState,useEffect} from 'react';
 
 function Blog() {
   const navigate = useNavigate();
-  const [post,setPost]=useState([]);
+  const [post, setPost] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -33,7 +32,6 @@ function Blog() {
     fetchPosts();
   }, []);
 
-  // Function to calculate time ago with minutes, hours, days
   const getTimeAgo = (date) => {
     const now = new Date();
     const postDate = new Date(date);
@@ -53,165 +51,149 @@ function Blog() {
     return `${diffYears} year${diffYears > 1 ? 's' : ''} ago`;
   };
 
-  // Function to get category class for styling
   const getCategoryClass = (category) => {
     return category ? category.toLowerCase().replace(/\s+/g, '-') : 'general';
   };
 
-  // Function to get image URL
-// Fixed getImageUrl function to prevent infinite recursion
-const getImageUrl = (imageData) => {
-  // Early return for null/undefined
-  if (!imageData) return null;
-  
-  try {
-    // If it's already a string URL, return as is
-    if (typeof imageData === 'string') {
-      return imageData.startsWith('http') ? imageData : `http://localhost:5000${imageData}`;
-    }
+  const getImageUrl = (imageData) => {
+    if (!imageData) return null;
     
-    // Handle Buffer or binary data object
-    if (imageData.data && imageData.contentType) {
-      // Check if data is an array or has a data property
-      const dataArray = Array.isArray(imageData.data) 
-        ? imageData.data 
-        : imageData.data.data || imageData.data;
-      
-      // Ensure we have a valid array
-      if (!Array.isArray(dataArray)) {
-        console.warn('Invalid image data format:', imageData);
-        return null;
+    try {
+      if (typeof imageData === 'string') {
+        return imageData.startsWith('http') ? imageData : `http://localhost:5000${imageData}`;
       }
-      
-      // Convert to base64 safely
-      const uint8Array = new Uint8Array(dataArray);
-      let binaryString = '';
-      const chunkSize = 8192; // Process in chunks to avoid call stack issues
-      
-      for (let i = 0; i < uint8Array.length; i += chunkSize) {
-        const chunk = uint8Array.slice(i, i + chunkSize);
-        binaryString += String.fromCharCode.apply(null, chunk);
-      }
-      
-      const base64String = btoa(binaryString);
-      return `data:${imageData.contentType};base64,${base64String}`;
-    }
-    
-    // If imageData has a buffer property (Node.js Buffer)
-    if (imageData.buffer && imageData.contentType) {
-      const base64String = btoa(
-        String.fromCharCode(...new Uint8Array(imageData.buffer))
-      );
-      return `data:${imageData.contentType};base64,${base64String}`;
-    }
-    
-    console.warn('Unsupported image data format:', typeof imageData, imageData);
-    return null;
-    
-  } catch (error) {
-    console.error('Error processing image data:', error);
-    return null;
-  }
-};
 
-  // Function to truncate content
+      if (imageData.data && imageData.contentType) {
+        const dataArray = Array.isArray(imageData.data) 
+          ? imageData.data 
+          : imageData.data.data || imageData.data;
+        
+        if (!Array.isArray(dataArray)) {
+          console.warn('Invalid image data format:', imageData);
+          return null;
+        }
+
+        const uint8Array = new Uint8Array(dataArray);
+        let binaryString = '';
+        const chunkSize = 8192;
+        
+        for (let i = 0; i < uint8Array.length; i += chunkSize) {
+          const chunk = uint8Array.slice(i, i + chunkSize);
+          binaryString += String.fromCharCode.apply(null, chunk);
+        }
+
+        const base64String = btoa(binaryString);
+        return `data:${imageData.contentType};base64,${base64String}`;
+      }
+
+      if (imageData.buffer && imageData.contentType) {
+        const base64String = btoa(
+          String.fromCharCode(...new Uint8Array(imageData.buffer))
+        );
+        return `data:${imageData.contentType};base64,${base64String}`;
+      }
+
+      console.warn('Unsupported image data format:', typeof imageData, imageData);
+      return null;
+
+    } catch (error) {
+      console.error('Error processing image data:', error);
+      return null;
+    }
+  };
+
   const truncateContent = (content, maxLength = 150) => {
     if (!content) return '';
     return content.length > maxLength ? content.substring(0, maxLength) + '...' : content;
   };
 
-  const loadMorePosts = () => {
-    console.log('Load more stories clicked');
-    // Add your logic for loading more posts here
-  };
-
   return (
-     <><Navbar />
-     <div className="container">
+    <>
+      <Navbar />
+      <div className="container">
+        <header>
+          <h1 className="hero-title">Discover Stories</h1>
+          <p className="hero-subtitle">
+            Explore insights, ideas, and inspiration from our community of writers
+          </p>
 
-          <header>
-              <h1 className="hero-title">Discover Stories</h1>
-              <p className="hero-subtitle">
-                  Explore insights, ideas, and inspiration from our community of writers
-              </p>
+          <div className="search-bar">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search articles, topics, or authors..."
+              id="searchInput"
+            />
+          </div>
+        </header>
 
-              <div className="search-bar">
-                  <input
-                      type="text"
-                      className="search-input"
-                      placeholder="Search articles, topics, or authors..."
-                      id="searchInput" />
-              </div>
-          </header>
-
-          <main className="blog-grid" id="blogGrid">
-              {post.length > 0 ? (
-                post.map((postItem, index) => (
-                  <article key={postItem._id || index} className="blog-card">
-                      <div className={`card-image ${getCategoryClass(postItem.category)}`}>
-                          {(() => {
-                            const imageUrl = getImageUrl(postItem.image);
-                            return imageUrl ? (
-                              <img 
-                                src={imageUrl}
-                                alt={postItem.title}
-                                style={{
-                                  width: '100%',
-                                  height: '100%',
-                                  objectFit: 'cover'
-                                }}
-                                onError={(e) => {
-                                  // Fallback if image fails to load
-                                  e.target.style.display = 'none';
-                                  e.target.parentElement.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                                }}
-                              />
-                            ) : (
-                              // Default gradient background if no image
-                              <div style={{
-                                width: '100%',
-                                height: '100%',
-                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                              }}></div>
-                            );
-                          })()}
-                          <div className="image-overlay">
-                              <span className="category-tag">
-                                {postItem.category || 'General'}
-                              </span>
-                          </div>
-                      </div>
-                      <div className="card-content">
-                          <h2 className="card-title">{postItem.title}</h2>
-                          <p className="card-excerpt">
-                              {truncateContent(postItem.content)}
-                          </p>
-                          <div className="card-meta">
-                              <div className="likes-count">
-                                ❤️ {postItem.likes?.length || 0} likes
-                              </div>
-                              <div className="post-time">
-                                {postItem.createdAt ? getTimeAgo(postItem.createdAt) : 'Recently'}
-                              </div>
-                          </div>
-                      </div>
-                  </article>
-                ))
-              ) : (
-                <div className="no-posts">
-                  <p>No posts available at the moment.</p>
+        <main className="blog-grid" id="blogGrid">
+          {post.length > 0 ? (
+            post.map((postItem, index) => (
+              <article
+                key={postItem._id || index}
+                className="blog-card"
+                onClick={() => navigate('/postDetails',{ state: {postId:postItem._id } })}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className={`card-image ${getCategoryClass(postItem.category)}`}>
+                  {(() => {
+                    const imageUrl = getImageUrl(postItem.image);
+                    return imageUrl ? (
+                      <img 
+                        src={imageUrl}
+                        alt={postItem.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.parentElement.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                        }}
+                      />
+                    ) : (
+                      <div style={{
+                        width: '100%',
+                        height: '100%',
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                      }}></div>
+                    );
+                  })()}
+                  <div className="image-overlay">
+                    <span className="category-tag">
+                      {postItem.category || 'General'}
+                    </span>
+                  </div>
                 </div>
-              )}
-          </main>
-
-          {post.length > 0 && (
-            <div className="load-more">
-                <button className="load-more-btn" onClick={loadMorePosts}>
-                    Load More Stories
-                </button>
+                <div className="card-content">
+                  <h2 className="card-title">{postItem.title}</h2>
+                  <p className="card-excerpt">
+                    {truncateContent(postItem.content)}
+                  </p>
+                  <div className="card-meta">
+                    <div className="views-count">
+                      👁️ {postItem.views || 0} views
+                    </div>
+                    <div className="likes-count">
+                      ❤️ {postItem.likes?.length || 0} likes
+                    </div>
+                    <div className="post-time">
+                      {postItem.createdAt ? getTimeAgo(postItem.createdAt) : 'Recently'}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))
+          ) : (
+            <div className="no-posts">
+              <p>No posts available at the moment.</p>
             </div>
           )}
-      </div></>
+        </main>
+      </div>
+    </>
   );
 }
 

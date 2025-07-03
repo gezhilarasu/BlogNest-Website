@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import './mainBlog.css'; 
 import {useState,useEffect} from 'react';
@@ -6,6 +5,7 @@ import {useState,useEffect} from 'react';
 function MyPosts() {
   const navigate = useNavigate();
   const [post,setPost]=useState([]);
+  const [deleteLoading, setDeleteLoading] = useState({});
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -31,6 +31,43 @@ function MyPosts() {
 
     fetchPosts();
   }, []);
+
+  // Function to delete a post
+  const deletePost = async (postId) => {
+    // Show confirmation dialog
+    if (!window.confirm('Are you sure you want to delete this post? This action cannot be undone.')) {
+      return;
+    }
+
+    console.log('Attempting to delete post with ID:', postId); // Add this line
+
+    setDeleteLoading(prev => ({ ...prev, [postId]: true }));
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/post/deletepost/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('BlogNest_token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        // Remove the deleted post from the state
+        setPost(prevPosts => prevPosts.filter(p => p._id !== postId));
+        alert('Post deleted successfully!');
+      } else {
+        const errorData = await response.json();
+        console.error('Delete post error:', errorData); // <-- Add this line
+        alert(`Failed to delete post: ${errorData.message || response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      alert('An error occurred while deleting the post. Please try again.');
+    } finally {
+      setDeleteLoading(prev => ({ ...prev, [postId]: false }));
+    }
+  };
 
   // Function to calculate time ago with minutes, hours, days
   const getTimeAgo = (date) => {
@@ -165,6 +202,46 @@ const getImageUrl = (imageData) => {
                               <span className="category-tag">
                                 {postItem.category || 'General'}
                               </span>
+                              {/* Delete button positioned in top-right corner */}
+                              <button 
+                                className="delete-btn"
+                                onClick={() => deletePost(postItem._id)}
+                                disabled={deleteLoading[postItem._id]}
+                                title="Delete this post"
+                                style={{
+                                  position: 'absolute',
+                                  top: '10px',
+                                  right: '10px',
+                                  background: 'rgba(255, 59, 48, 0.9)',
+                                  color: 'white',
+                                  border: 'none',
+                                  borderRadius: '50%',
+                                  width: '32px',
+                                  height: '32px',
+                                  cursor: deleteLoading[postItem._id] ? 'not-allowed' : 'pointer',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '14px',
+                                  fontWeight: 'bold',
+                                  transition: 'all 0.2s ease',
+                                  opacity: deleteLoading[postItem._id] ? 0.6 : 1
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (!deleteLoading[postItem._id]) {
+                                    e.target.style.background = 'rgba(255, 59, 48, 1)';
+                                    e.target.style.transform = 'scale(1.1)';
+                                  }
+                                }}
+                                onMouseLeave={(e) => {
+                                  if (!deleteLoading[postItem._id]) {
+                                    e.target.style.background = 'rgba(255, 59, 48, 0.9)';
+                                    e.target.style.transform = 'scale(1)';
+                                  }
+                                }}
+                              >
+                                {deleteLoading[postItem._id] ? '⌛' : '🗑️'}
+                              </button>
                           </div>
                       </div>
                       <div className="card-content">
@@ -176,6 +253,9 @@ const getImageUrl = (imageData) => {
                               <div className="likes-count">
                                 ❤️ {postItem.likes?.length || 0} likes
                               </div>
+                              <div className="views-count">
+                                      👁️ {postItem.views || 0} views
+                                  </div>
                               <div className="post-time">
                                 {postItem.createdAt ? getTimeAgo(postItem.createdAt) : 'Recently'}
                               </div>
@@ -190,13 +270,8 @@ const getImageUrl = (imageData) => {
               )}
           </main>
 
-          {post.length > 0 && (
-            <div className="load-more">
-                <button className="load-more-btn" onClick={loadMorePosts}>
-                    Load More Stories
-                </button>
-            </div>
-          )}
+          {post.length > 0 
+          }
       </div></>
   );
 }

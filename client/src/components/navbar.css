@@ -116,12 +116,14 @@
   transition: all 0.3s ease;
   border: 3px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .profile-avatar:hover {
   transform: scale(1.1);
 }
 
+/* Menu Icon for Mobile */
 .menu-icon {
   display: none;
   cursor: pointer;
@@ -155,60 +157,155 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* 🔽 Responsive Styling */
+/* User dropdown menu */
+.user-dropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  min-width: 150px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 1010;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 20px;
+  color: #333;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.logout-btn:hover {
+  background: #f0f0f0;
+  color: #ff5252;
+}
+
+.logout-icon {
+  font-size: 1.2rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🔽 Responsive Styling - Maintain navbar size */
 @media (max-width: 880px) {
   .navbar1 {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 20px;
-    height: auto;
+    flex-direction: row; /* Keep horizontal layout */
+    align-items: center;
+    padding: 0 30px;
+    height: 70px; /* Maintain original height */
   }
 
   .menu-icon {
     display: block;
-    position: absolute;
-    right: 20px;
-    top: 20px;
+    position: relative;
+    right: 0;
+    top: 0;
   }
 
   .navbar-nav1 {
+    position: absolute;
+    top: 70px; /* Position below navbar */
+    left: 0;
+    right: 0;
     flex-direction: column;
     align-items: center;
     width: 100%;
     display: none;
     gap: 15px;
-    padding-top: 20px;
+    padding: 20px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    z-index: 999;
   }
 
   .navbar-nav1.active {
     display: flex;
   }
 
+  /* Order items in mobile menu */
+  .nav-item3 {
+    order: 1; /* User profile at the top */
+  }
+  
+  .nav-item2:has(.new-post-btn) {
+    order: 2; /* New post second */
+  }
+  
+  .nav-item2:nth-of-type(3) {
+    order: 3; /* Your posts third */
+  }
+  
+  .nav-item2:first-of-type {
+    order: 4; /* Favourite at the bottom */
+  }
+
   .fav-link, .new-post-btn {
     width: 90%;
     justify-content: center;
     text-align: center;
+    font-size: 0.95rem; /* Maintain original size */
+    padding: 12px 20px; /* Maintain original padding */
   }
 
   .profile-avatar {
-    margin: 10px 0;
+    width: 45px; /* Maintain original size */
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  
+  .user-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 150px;
   }
 }
 
-@media (max-width: 480px) {
+/* Remove size reductions for smaller screens */
+@media (max-width: 768px), (max-width: 640px), (max-width: 480px) {
+  .navbar1 {
+    padding: 0 30px; /* Maintain original padding */
+  }
+  
   .nav-item1 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 2rem; /* Maintain original size */
   }
-
-  .fav-link {
+  
+  /* Remove the text hiding for small screens */
+  .fav-link span:not(.link-icon) {
+    display: inline;
+  }
+  
+  /* For mobile dropdown only */
+  .navbar-nav1 .fav-link {
     font-size: 0.95rem;
-    padding: 10px 15px;
+    padding: 12px 20px;
+    width: 90%;
   }
-
+  
   .profile-avatar {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
   }
 }

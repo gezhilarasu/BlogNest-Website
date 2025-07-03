@@ -830,3 +830,28 @@ header::before {
     background: rgba(31, 41, 55, 0.95);
   }
 }
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+.card-meta > div {
+  margin-right: 10px;
+}
+
+.views-count {
+  display: flex;
+  align-items: center;
+  color: #888;
+}
+
+.likes-count {
+  display: flex;
+  align-items: center;
+  color: #e25555;
+}

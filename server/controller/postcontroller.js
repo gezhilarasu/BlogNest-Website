@@ -39,7 +39,7 @@ const deletePost=async(req,res)=>{
         {
             return res.status(404).json({message:"Post not found"});
         }
-        await Post.findByIdAndDelete(PostId);
+        await Post.findByIdAndDelete(postId);
         return res.status(200).json({message:"Post deleted successfully"});
     }
     catch(error)

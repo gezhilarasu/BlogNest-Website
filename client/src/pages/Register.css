@@ -155,7 +155,12 @@ label {
   border-radius: 8px;
 }
 
-/* Submit Button */
+.password-hint {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
 
 
 

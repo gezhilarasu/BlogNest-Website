@@ -8,6 +8,7 @@ import ResetPassword from './pages/newpassword';
 import CreatePost from './pages/post';
 import Token_verify from './services/Token_verify';
 import MyPosts from './pages/mypost'
+import PostDetails from './pages/postdetail';
 import { BrowserRouter as RouterBrowser, Routes, Route } from 'react-router-dom';
 
 function App(){
@@ -24,6 +25,7 @@ function App(){
         <Route path='/newpassword' element={<ResetPassword/>}></Route>
         <Route path='/createpost' element={<CreatePost/>}></Route>
         <Route path='/myposts' element={<MyPosts/>}></Route>
+        <Route path='/postDetails' element={<PostDetails/>}></Route>
       </Routes>
     </RouterBrowser>
   )

@@ -16,6 +16,9 @@
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 /* Title */
@@ -36,6 +39,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    
 }
 
 .form-group {
@@ -246,6 +250,12 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .create-post-wrapper {
+        max-width: 700px;
+    }
+}
+
 @media (max-width: 768px) {
     .create-post-container {
         padding: 1rem;
@@ -253,6 +263,7 @@
     
     .create-post-wrapper {
         padding: 1.5rem;
+        max-width: 90%;
     }
     
     .create-post-title {
@@ -274,18 +285,34 @@
 }
 
 @media (max-width: 480px) {
+    .create-post-container {
+        padding: 0.75rem;
+    }
+    
     .create-post-wrapper {
         padding: 1rem;
+        width: 95%;
+        border-radius: 8px;
     }
     
     .create-post-title {
         font-size: 1.75rem;
+        margin-bottom: 1.5rem;
     }
     
     .form-input,
     .form-select,
     .form-textarea {
         padding: 0.75rem;
+    }
+    
+    .form-group {
+        gap: 0.35rem;
+    }
+    
+    .form-actions {
+        padding-top: 0.75rem;
+        margin-top: 0.75rem;
     }
 }
 
@@ -330,4 +357,27 @@
 
 .form-textarea::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
+}
+
+.create-post-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .create-post-description {
+        width: 100%;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-post-description {
+        padding: 0 0.5rem;
+        font-size: 0.9rem;
+    }
 }
