@@ -1,28 +1,29 @@
 import React, {useState,useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import './Register.css';
 
 function Register()
 {
-    const [username,setusername]=useState('');
+    const [name,setusername]=useState('');
     const [email,setemail]=useState('');
     const [password,setpassword]=useState('');
     const [confirmPassword,setconfirmPassword]=useState('');
-
-    const handlesubmit=(e)=>{
+    const navigate=useNavigate();
+    const handlesubmit=async (e)=>{
         e.preventDefault();
+        
         if(password!==confirmPassword){
             alert("Passwords do not match");
             return;
         }
-
         try{
-                const response=fetch('http://localhost:5000/api/register',{
+                const response= await fetch('http://localhost:5000/api/auth/register',{
                     method:'POST', 
                     headers:{
                         'Content-Type':'application/json',
                     },
                     body:JSON.stringify({
-                        username,
+                        name,
                         email,
                         password
                     }
@@ -32,8 +33,8 @@ function Register()
             if(response.ok){
                 alert("Registration successful");
                 // Redirect to login or home page
-                const navigate=useNavigate();
-                navigate('/login'); 
+                
+                navigate('/otp', { state: { email } }); 
             }
             else{
                 alert("Registration failed");
@@ -47,14 +48,15 @@ function Register()
 
     }
     return(
-        <div className="register-form">
+        
+            <div className="register-header">
             <form onSubmit={handlesubmit}>
                 <h2>Register</h2>
                 <div className="form-group">
                     <label>Username:</label>
                     <input 
                         type="text" 
-                        value={username} 
+                        value={name} 
                         onChange={(e) => setusername(e.target.value)} 
                         required 
                     />
@@ -89,9 +91,10 @@ function Register()
                         required 
                     />
                 </div>
-                <button type="submit">Register</button>
+                <button className="register-button"type="submit">Register</button>
             </form>
-        </div>
+            </div>
+        
     )
 }
 
