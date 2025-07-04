@@ -23,7 +23,7 @@ router.post('/createpost', verifyToken,upload.single('image'),createPost);
 router.delete('/deletepost/:id', verifyToken, deletePost);
 
 // Get a single post by ID (no auth needed unless required)
-router.get('/getpost/:id', getPostById);
+router.get('/getpost/:id',verifyToken,getPostById);
 
 // Get all posts (public view)
 router.get('/allpost', getallposts);

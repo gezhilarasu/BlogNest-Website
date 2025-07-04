@@ -80,6 +80,10 @@ const postSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    viewers: [{ // track who viewed the post
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     createdAt: {
         type: Date,
         default: Date.now
@@ -104,6 +108,11 @@ const commentSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true
+    },
+    parentCommentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+        default: null // null means top-level comment
     },
     createdAt: {
         type: Date,

@@ -69,26 +69,31 @@ const getPostsByuser=async(req,res)=>{
     }
 }
 
-const getPostById=async(req,res)=>{
-    const postId=req.params.id;
-    try{
-            const post = await Post.findByIdAndUpdate(
-                postId,
-                { $inc: { views: 1 } },
-                { new: true });        
-        if(!post)
-        {
-            return res.status(404).json({message:"Post not found"});
+const getPostById = async (req, res) => {
+    const postId = req.params.id;
+    const userId = req.user?.id;
+
+    try {
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
         }
+
+        if (!post.viewers.includes(userId)) {
+            post.views += 1;
+            post.viewers.push(userId); 
+            await post.save();
+        }
+
         console.log("Post retrieved:", post);
-        return res.status(200).json({message:"Post retrieved successfully",post});
-    }
-    catch(error)
-    {
+        return res.status(200).json({ message: "Post retrieved successfully", post });
+    } catch (error) {
         console.error("Error retrieving post:", error);
-        return res.status(500).json({message:"Internal server error"});
+        return res.status(500).json({ message: "Internal server error" });
     }
 }
+
 
 const getallposts=async(req,res)=>{
     try{
