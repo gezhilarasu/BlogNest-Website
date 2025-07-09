@@ -32,14 +32,14 @@ const createPost = async (req, res) => {
 
 
 const deletePost=async(req,res)=>{
-    const postId=req.params.id;
+    const postId=req.params.postId;
     try{
         const existingpost=await Post.findById(postId);
         if(!existingpost)
         {
             return res.status(404).json({message:"Post not found"});
         }
-        await Post.findByIdAndDelete(PostId);
+        await Post.findByIdAndDelete(postId);
         return res.status(200).json({message:"Post deleted successfully"});
     }
     catch(error)
@@ -70,11 +70,12 @@ const getPostsByuser=async(req,res)=>{
 }
 
 const getPostById = async (req, res) => {
-    const postId = req.params.id;
+    const postId = req.params.postId;
     const userId = req.user?.id;
 
     try {
-        const post = await Post.findById(postId);
+        console.log("Fetching post with ID:", postId);
+        const post = await Post.findOne({ _id: postId });
 
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
@@ -96,6 +97,7 @@ const getPostById = async (req, res) => {
 
 
 const getallposts=async(req,res)=>{
+    
     try{
         const posts=await Post.find().sort({createdAt:-1});
         if(posts.length===0)

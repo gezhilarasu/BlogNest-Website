@@ -9,7 +9,7 @@ const {
 } = require('../controller/commentcontroller');
 
 router.post('/create-comment/:postId', verifyToken, createComment);
-router.get('/getcomment/:postId', getCommentsByPost);
+router.get('/getcomment/:postId',verifyToken, getCommentsByPost);
 router.delete('/deletecomment/:id', verifyToken, deleteComment);
 router.get('/getcomment-userId', verifyToken, getCommentsByUser);
 

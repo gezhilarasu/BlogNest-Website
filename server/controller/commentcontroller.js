@@ -1,9 +1,10 @@
-const Comment = require('../models/models');
+const {Comment} = require('../models/models');
 
 const createComment = async (req, res) => {
-    const userId = req.user.userId;
+    const userId = req.user.id;
     const postId = req.params.postId;
     const { content, parentCommentId } = req.body;
+    console.log("Creating comment:", { userId, postId, content, parentCommentId }); 
 
     try {
         const comment = new Comment({
@@ -55,7 +56,7 @@ const getCommentsByPost = async (req, res) => {
 
 const deleteComment = async (req, res) => {
     const commentId = req.params.id;
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     try {
         const comment = await Comment.findById(commentId);
@@ -73,7 +74,7 @@ const deleteComment = async (req, res) => {
 };
 
 const getCommentsByUser = async (req, res) => {
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     try {
         const comments = await Comment.find({ userId }).sort({ createdAt: -1 });

@@ -146,7 +146,7 @@ const CreatePost = () => {
         <div className="create-post-container">
             <div className="create-post-wrapper">
                 <h1 className="create-post-title">Create New Post</h1>
-                
+                <div className="create-post-description">
                 {error && <div className="error-message">{error}</div>}
                 {success && <div className="success-message">{success}</div>}
 
@@ -259,6 +259,7 @@ const CreatePost = () => {
                         </button>
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     );

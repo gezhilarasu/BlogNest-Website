@@ -20,13 +20,13 @@ module.exports = upload;
 router.post('/createpost', verifyToken,upload.single('image'),createPost);
 
 // Delete a post by ID (authenticated)
-router.delete('/deletepost/:id', verifyToken, deletePost);
+router.delete('/deletepost/:postId', verifyToken, deletePost);
 
 // Get a single post by ID (no auth needed unless required)
-router.get('/getpost/:id',verifyToken,getPostById);
+router.get('/getpost/:postId',verifyToken,getPostById);
 
 // Get all posts (public view)
-router.get('/allpost', getallposts);
+router.get('/allpost',verifyToken, getallposts);
 
 // Get posts of the logged-in user (authenticated)
 router.get('/mypost', verifyToken, getPostsByuser);

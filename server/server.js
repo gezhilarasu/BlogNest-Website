@@ -25,7 +25,7 @@ const postRoutes=require('./routes/post');
 
 app.use('/api/auth',authRoutes);
 app.use('/api/comment',commentRoutes);
-app.use('/api/favoriate',favoriteRoutes);
+app.use('/api/favorite',favoriteRoutes);
 app.use('/api/like',likeRoutes);
 app.use('/api/post',postRoutes);
 
