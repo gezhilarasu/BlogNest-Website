@@ -78,14 +78,10 @@ function Register()
                         id="password" 
                         value={password} 
                         onChange={(e) => setpassword(e.target.value)} 
-                        minLength="6"
                         required 
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$"
                         title="Password must be at least 6 characters and include at least one uppercase letter, one lowercase letter, and one number"
                     />
-                    <small className="password-hint">
-                        Password must be at least 6 characters and include uppercase, lowercase, and numbers
-                    </small>
+                    
                 </div>
                 <div className="form-group">
                     <label>Confirm Password:</label>

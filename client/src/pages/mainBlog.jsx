@@ -32,6 +32,65 @@ function Blog() {
     fetchPosts();
   }, []);
 
+  // Function to get like count from localStorage
+  const getLikeCountFromLocalStorage = (postId) => {
+    let likeCount = 0;
+    
+    // Get all localStorage keys
+    const keys = Object.keys(localStorage);
+    
+    // Filter keys that match the like pattern for this post
+    const likeKeys = keys.filter(key => 
+      key.startsWith(`like_${postId}_`) && 
+      localStorage.getItem(key) === 'true'
+    );
+    
+    // Filter keys that match the pending like pattern for this post
+    const pendingLikeKeys = keys.filter(key => {
+      if (key.startsWith(`pending_like_${postId}_`)) {
+        try {
+          const pendingData = JSON.parse(localStorage.getItem(key));
+          return pendingData && pendingData.action === 'like';
+        } catch (error) {
+          return false;
+        }
+      }
+      return false;
+    });
+    
+    // Total count from confirmed likes and pending likes
+    likeCount = likeKeys.length + pendingLikeKeys.length;
+    
+    return likeCount;
+  };
+
+  // Function to check if current user has liked the post
+  const hasUserLiked = (postId) => {
+    const username = localStorage.getItem('BlogNest_username');
+    if (!username) return false;
+    
+    const likeKey = `like_${postId}_${username}`;
+    const pendingLikeKey = `pending_like_${postId}_${username}`;
+    
+    // Check if user has confirmed like
+    if (localStorage.getItem(likeKey) === 'true') {
+      return true;
+    }
+    
+    // Check if user has pending like
+    try {
+      const pendingData = localStorage.getItem(pendingLikeKey);
+      if (pendingData) {
+        const parsed = JSON.parse(pendingData);
+        return parsed.action === 'like';
+      }
+    } catch (error) {
+      console.error('Error parsing pending like data:', error);
+    }
+    
+    return false;
+  };
+
   const getTimeAgo = (date) => {
     const now = new Date();
     const postDate = new Date(date);
@@ -129,68 +188,80 @@ function Blog() {
 
         <main className="blog-grid" id="blogGrid">
           {post.length > 0 ? (
-            post.map((postItem, index) => (
-              <article
-                key={postItem._id || index}
-                className="blog-card"
-                onClick={() => navigate('/postDetails',{ state: {postId:postItem._id } })}
-                style={{ cursor: 'pointer' }}
-              >
-                <div className={`card-image ${getCategoryClass(postItem.category)}`}>
-                  {(() => {
-                    const imageUrl = getImageUrl(postItem.image);
-                    return imageUrl ? (
-                      <img 
-                        src={imageUrl}
-                        alt={postItem.title}
-                        style={{
+            post.map((postItem, index) => {
+              const localStorageLikeCount = getLikeCountFromLocalStorage(postItem._id);
+              const serverLikeCount = postItem.likes?.length || 0;
+              const totalLikeCount = Math.max(localStorageLikeCount, serverLikeCount);
+              const userHasLiked = hasUserLiked(postItem._id);
+              
+              return (
+                <article
+                  key={postItem._id || index}
+                  className="blog-card"
+                  onClick={() => navigate('/postDetails',{ state: {postId:postItem._id } })}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className={`card-image ${getCategoryClass(postItem.category)}`}>
+                    {(() => {
+                      const imageUrl = getImageUrl(postItem.image);
+                      return imageUrl ? (
+                        <img 
+                          src={imageUrl}
+                          alt={postItem.title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.parentElement.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                          }}
+                        />
+                      ) : (
+                        <div style={{
                           width: '100%',
                           height: '100%',
-                          objectFit: 'cover'
-                        }}
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.parentElement.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                        }}
-                      />
-                    ) : (
-                      <div style={{
-                        width: '100%',
-                        height: '100%',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                      }}></div>
-                    );
-                  })()}
-                  <div className="image-overlay">
-                    <span className="category-tag">
-                      {postItem.category || 'General'}
-                    </span>
-                  </div>
-                </div>
-                <div className="card-content">
-                  <h2 className="card-title">{postItem.title}</h2>
-                  <p className="card-excerpt">
-                    {truncateContent(postItem.content)}
-                  </p>
-                  <div className="card-meta">
-                    <div className="views-count">
-                      👁️ {postItem.views || 0} views
-                    </div>
-                    <div className="likes-count">
-                      ❤️ {postItem.likes?.length || 0} likes
-                    </div>
-                    <div className="post-time">
-                      {postItem.createdAt ? getTimeAgo(postItem.createdAt) : 'Recently'}
+                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                        }}></div>
+                      );
+                    })()}
+                    <div className="image-overlay">
+                      <span className="category-tag">
+                        {postItem.category || 'General'}
+                      </span>
                     </div>
                   </div>
-                </div>
-              </article>
-            ))
+                  <div className="card-content">
+                    <h2 className="card-title">{postItem.title}</h2>
+                    <p className="card-excerpt">
+                      {truncateContent(postItem.content)}
+                    </p>
+                    <div className="card-meta">
+                      <div className="views-count">
+                        👁️ {postItem.views || 0} views
+                      </div>
+                      <div className="likes-count" style={{ color: userHasLiked ? '#ff6b6b' : '#666' }}>
+                        {userHasLiked ? '❤️' : '🤍'} {totalLikeCount} likes
+                        {localStorageLikeCount > serverLikeCount && (
+                          <span style={{ fontSize: '0.8em', color: '#999', marginLeft: '4px' }}>
+                           
+                          </span>
+                        )}
+                      </div>
+                      <div className="post-time">
+                        {postItem.createdAt ? getTimeAgo(postItem.createdAt) : 'Recently'}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              );
+            })
           ) : (
             <div className="no-posts">
               <p>No posts available at the moment.</p>
             </div>
-          )}
+            )}
         </main>
       </div>
     </>

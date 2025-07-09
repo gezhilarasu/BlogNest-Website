@@ -14,15 +14,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 30px;
-  height: 70px;
+  padding: 0 20px; /* Reduced from 30px */
+  height: 50px; /* Reduced from 70px */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-item1 {
-  font-size: 2rem;
+  font-size: 1.5rem; /* Reduced from 2rem */
   font-weight: 900;
   letter-spacing: 2px;
   cursor: pointer;
@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 20px;
+  gap: 15px; /* Reduced from 20px */
 }
 
 .nav-item2 {
@@ -54,14 +54,14 @@
   text-decoration: none;
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.95rem;
-  padding: 12px 20px;
+  font-size: 0.85rem; /* Reduced from 0.95rem */
+  padding: 8px 15px; /* Reduced from 12px 20px */
   border-radius: 25px;
   transition: all 0.3s;
   background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px; /* Reduced from 8px */
   position: relative;
   overflow: hidden;
   border: 2px solid transparent;
@@ -102,8 +102,8 @@
 }
 
 .profile-avatar {
-  width: 45px;
-  height: 45px;
+  width: 35px; /* Reduced from 45px */
+  height: 35px; /* Reduced from 45px */
   border-radius: 50%;
   background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
   display: flex;
@@ -111,7 +111,7 @@
   align-items: center;
   color: white;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem; /* Reduced from 1.2rem */
   cursor: pointer;
   transition: all 0.3s ease;
   border: 3px solid rgba(255, 255, 255, 0.3);
@@ -209,10 +209,10 @@
 /* 🔽 Responsive Styling - Maintain navbar size */
 @media (max-width: 880px) {
   .navbar1 {
-    flex-direction: row; /* Keep horizontal layout */
+    flex-direction: row;
     align-items: center;
-    padding: 0 30px;
-    height: 70px; /* Maintain original height */
+    padding: 0 20px; /* Reduced */
+    height: 50px; /* Reduced */
   }
 
   .menu-icon {
@@ -224,7 +224,7 @@
 
   .navbar-nav1 {
     position: absolute;
-    top: 70px; /* Position below navbar */
+    top: 50px; /* Position below smaller navbar */
     left: 0;
     right: 0;
     flex-direction: column;
@@ -263,32 +263,25 @@
     width: 90%;
     justify-content: center;
     text-align: center;
-    font-size: 0.95rem; /* Maintain original size */
-    padding: 12px 20px; /* Maintain original padding */
+    font-size: 0.85rem; /* Maintain reduced size */
+    padding: 8px 15px; /* Maintain reduced padding */
   }
 
   .profile-avatar {
-    width: 45px; /* Maintain original size */
-    height: 45px;
-    font-size: 1.2rem;
-  }
-  
-  .user-dropdown {
-    position: absolute;
-    top: 55px;
-    right: 0;
-    width: 150px;
+    width: 35px; /* Maintain reduced size */
+    height: 35px;
+    font-size: 1rem;
   }
 }
 
 /* Remove size reductions for smaller screens */
 @media (max-width: 768px), (max-width: 640px), (max-width: 480px) {
   .navbar1 {
-    padding: 0 30px; /* Maintain original padding */
+    padding: 0 20px; /* Maintain reduced padding */
   }
   
   .nav-item1 {
-    font-size: 2rem; /* Maintain original size */
+    font-size: 1.5rem; /* Maintain reduced size */
   }
   
   /* Remove the text hiding for small screens */
@@ -298,14 +291,14 @@
   
   /* For mobile dropdown only */
   .navbar-nav1 .fav-link {
-    font-size: 0.95rem;
-    padding: 12px 20px;
+    font-size: 0.85rem;
+    padding: 8px 15px;
     width: 90%;
   }
   
   .profile-avatar {
-    width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
   }
 }
