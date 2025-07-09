@@ -7,18 +7,18 @@ function Token_verify(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('blog_token');
+        const token = localStorage.getItem('BlogNest_token');
         if (token) {
             console.log(token);
             // If token exists, redirect to Landing page
-            navigate('/Blog');
+            navigate('/mainBlog');
         } else {
             // If no token, redirect to Login page
             navigate('/Landing');
         }
     }, [navigate]);
 
-    return null; // This component does not render anything
+    return null;
 }
 
 export default Token_verify;

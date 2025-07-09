@@ -28,10 +28,9 @@ function Landing() {
   };
 
   return (
-    <div className="landing-page">
+    <div className="landing-pages">
       {/* Header */}
-      <header className={`landing-header ${isMenuOpen ? 'landing-header-menu-open' : ''}`}>
-        <nav className="landing-navbar">
+        <nav className="landing-navbars">
           <h1 className="landing-site-title">BLOGNEST</h1>
           
           {/* Menu Toggle Button */}
@@ -58,17 +57,7 @@ function Landing() {
         </nav>
         
         {/* Full Menu Overlay */}
-        <div className={`landing-menu-overlay ${isMenuOpen ? 'landing-menu-overlay-open' : ''}`}>
-          <div className="landing-menu-content">
-            <ul className="landing-menu-items">
-              <li><button onClick={() => scrollToSection(featuresRef)} className="landing-menu-item">Features</button></li>
-              <li><button onClick={() => scrollToSection(aboutRef)} className="landing-menu-item">About</button></li>
-              <li><button onClick={handleLogin} className="landing-menu-item">Login</button></li>
-              <li><button onClick={handleRegister} className="landing-menu-item landing-menu-register">Register</button></li>
-            </ul>
-          </div>
-        </div>
-      </header>
+        
 
       {/* Hero Section */}
       <section className="landing-hero-section">

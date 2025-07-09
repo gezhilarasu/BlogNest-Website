@@ -5,6 +5,6 @@ const verifyToken = require('../middleware/verify_token');
 
 
 route.post('/addFavorite/:postId', verifyToken, addFavorite);
-route.post('/removeFavorite/:postId',verifyToken,deleteFavorite);
+route.delete('/removeFavorite/:postId',verifyToken,deleteFavorite);
 route.get('/favorite_post',verifyToken,getFavoritePosts);
 module.exports = route;
