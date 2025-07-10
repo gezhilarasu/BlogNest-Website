@@ -20,7 +20,7 @@ const PostDetails = () => {
   useEffect(() => {
     const fetchPostDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/post/getpost/${postId}`, {
+        const response = await fetch(`https://blognest-website.onrender.com/api/post/getpost/${postId}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -39,7 +39,7 @@ const PostDetails = () => {
 
     const fetchFavorites = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/favorite/favorite_post', {
+        const response = await fetch('https://blognest-website.onrender.com/api/favorite/favorite_post', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -59,7 +59,7 @@ const PostDetails = () => {
 
     const fetchComments = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/comment/getcomment/${postId}`, {
+        const res = await fetch(`https://blognest-website.onrender.com/api/comment/getcomment/${postId}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();
@@ -97,7 +97,7 @@ const PostDetails = () => {
 
   const handleToggleLike = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/like/toggleLikePost/${postId}`, {
+      const response = await fetch(`https://blognest-website.onrender.com/api/like/toggleLikePost/${postId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -124,8 +124,8 @@ const PostDetails = () => {
 
   const handleToggleFavorite = async () => {
     const url = isFavorited
-      ? `http://localhost:5000/api/favorite/removeFavorite/${postId}`
-      : `http://localhost:5000/api/favorite/addFavorite/${postId}`;
+      ? `https://blognest-website.onrender.com/api/favorite/removeFavorite/${postId}`
+      : `https://blognest-website.onrender.com/api/favorite/addFavorite/${postId}`;
     const method = isFavorited ? 'DELETE' : 'POST';
     try {
       const response = await fetch(url, {
@@ -151,7 +151,7 @@ const PostDetails = () => {
   const handleAddComment = async () => {
     if (!commentContent.trim()) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/comment/create-comment/${postId}`, {
+      const res = await fetch(`https://blognest-website.onrender.com/api/comment/create-comment/${postId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
