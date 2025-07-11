@@ -264,10 +264,10 @@ const getImageUrl = (imageData) => {
                           </p>
                           <div className="card-meta">
                               <div className="likes-count">
-                                ❤️ {postItem.likes?.length || 0} likes
+                                ❤️ {postItem.likes} likes
                               </div>
                               <div className="views-count">
-                                      👁️ {postItem.views || 0} views
+                                      👁️ {postItem.views} views
                                   </div>
                               <div className="post-time">
                                 {postItem.createdAt ? getTimeAgo(postItem.createdAt) : 'Recently'}
