@@ -178,7 +178,7 @@ function Favorite() {
           <h2 className="card-title">{postItem.title}</h2>
           <p className="card-excerpt">{truncateContent(postItem.content)}</p>
           <div className="card-meta">
-            <div className="views-count">👁️ {postItem.views || 0} views</div>
+            <div className="views-count">👁️ {postItem.views} views</div>
             <div className="likes-count">❤️ {postItem.likes} likes</div>
             <div className="post-time">{postItem.createdAt ? getTimeAgo(postItem.createdAt) : 'Recently'}</div>
           </div>
