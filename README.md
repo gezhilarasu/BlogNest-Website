@@ -88,31 +88,3 @@ Frontend: Vercel
 Backend: Render
 
 Database: MongoDB Atlas
-
-###✨ Roadmap / Future Improvements
-🔍 Add search functionality
-
-🌙 Dark mode toggle
-
-🧠 Post recommendations by category
-
-📧 Email notifications for replies
-
-📊 Admin dashboard for analytics
-
-##👤 Author
-Ezhilarasu G
-
-📝 License
-This project is open-source and available under the MIT License.
-
-##🙏 Acknowledgements
-React
-
-Express
-
-MongoDB Atlas
-
-Vercel
-
-JWT.io
