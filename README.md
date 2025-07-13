@@ -48,33 +48,6 @@ Whether you're a content creator or a curious reader, BlogNest allows you to exp
 
 ---
 
-## 📁 Folder Structure
-
-BlogNest/
-│
-├── client/ # React frontend
-│ ├── src/
-│ │ ├── components/ # Navbar, blog cards, etc.
-│ │ ├── pages/ # Blog, PostDetails, CreatePost, etc.
-│ │ └── App.jsx
-│ └── public/
-│
-├── server/ # Express backend
-│ ├── controllers/ # Logic for posts, users, comments
-│ ├── models/ # Mongoose schemas
-│ ├── routes/ # API endpoints
-│ ├── middleware/ # JWT & error handlers
-│ ├── uploads/ # Uploaded images
-│ └── server.js
-│
-└── README.md
-
-yaml
-Copy
-Edit
-
----
-
 ## 🛠️ Setup & Installation
 
 ### ⚙️ Prerequisites
@@ -106,19 +79,35 @@ Backend: Render
 
 Database: MongoDB Atlas
 
-👤 Author
-Ezhilarasu G
+## ✨ Roadmap / Future Improvements
 
-📝 License
-This project is open-source and available under the MIT License.
+- 🔍 Add search functionality
+- 🌙 Dark mode toggle
+- 🧠 Post recommendations by category
+- 📧 Email notifications for replies
+- 📊 Admin dashboard for analytics
 
-🙏 Acknowledgements
-React
+---
 
-Express
+## 👤 Author
 
-MongoDB Atlas
+**Ezhilarasu G**  
+- GitHub: [@gezhilarasu](https://github.com/gezhilarasu)  
+- LinkedIn: *[Add your LinkedIn profile link here]*
 
-Vercel
+---
 
-JWT.io
+## 📝 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+## 🙏 Acknowledgements
+
+- [React](https://reactjs.org/)
+- [Express](https://expressjs.com/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- [Vercel](https://vercel.com/)
+- [JWT.io](https://jwt.io/)
+
