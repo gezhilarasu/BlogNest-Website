@@ -14,7 +14,7 @@ Whether you're a content creator or a curious reader, BlogNest allows you to exp
 
 ### 📝 Post Management
 - Create and delete posts
-- Upload and display images (buffer)
+- Upload and display images (buffer-based)
 - Categorize posts by topics like **Technology**, **Travel**, **Food**, etc.
 
 ### 📚 Browse & Filter
@@ -38,13 +38,13 @@ Whether you're a content creator or a curious reader, BlogNest allows you to exp
 
 ## 🚀 Tech Stack
 
-| Frontend | Backend |
-|----------|---------|
-| React (Vite) | Node.js (Express) |
-| React Router DOM | MongoDB with Mongoose |
-| Custom CSS | Multer (Image Uploads) |
-| Fetch API | JWT for authentication |
-| Responsive Design | CORS, dotenv, etc. |
+| Frontend         | Backend              |
+|------------------|----------------------|
+| React (Vite)     | Node.js (Express)    |
+| React Router DOM | MongoDB with Mongoose|
+| Custom CSS       | Multer (Image Uploads)|
+| Fetch API        | JWT for authentication|
+| Responsive Design| CORS, dotenv, etc.   |
 
 ---
 
@@ -59,9 +59,18 @@ Whether you're a content creator or a curious reader, BlogNest allows you to exp
 ```bash
 cd server
 npm install
-# Create .env file with:
-# MONGO_URI=your_mongodb_uri
-# JWT_SECRET=your_jwt_secret
+Create a .env file inside the server/ directory:
+
+ini
+Copy
+Edit
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+Start the backend server:
+
+bash
+Copy
+Edit
 npm run dev
 🌐 Frontend Setup
 bash
@@ -70,44 +79,40 @@ Edit
 cd client
 npm install
 npm run dev
-Now visit: http://localhost:5173 to open the BlogNest site.
+Now open your browser and visit:
+http://localhost:5173
 
-🌐 Deployment
-Frontend: Vercel 
+🚀 Deployment
+Frontend: Vercel
 
-Backend: Render 
+Backend: Render
 
 Database: MongoDB Atlas
 
-## ✨ Roadmap / Future Improvements
+✨ Roadmap / Future Improvements
+🔍 Add search functionality
 
-- 🔍 Add search functionality
-- 🌙 Dark mode toggle
-- 🧠 Post recommendations by category
-- 📧 Email notifications for replies
-- 📊 Admin dashboard for analytics
+🌙 Dark mode toggle
 
----
+🧠 Post recommendations by category
 
-## 👤 Author
+📧 Email notifications for replies
 
-**Ezhilarasu G**  
-- GitHub: [@gezhilarasu](https://github.com/gezhilarasu)  
-- LinkedIn: *[Add your LinkedIn profile link here]*
+📊 Admin dashboard for analytics
 
----
+👤 Author
+Ezhilarasu G
 
-## 📝 License
+📝 License
+This project is open-source and available under the MIT License.
 
-This project is open-source and available under the [MIT License](LICENSE).
+🙏 Acknowledgements
+React
 
----
+Express
 
-## 🙏 Acknowledgements
+MongoDB Atlas
 
-- [React](https://reactjs.org/)
-- [Express](https://expressjs.com/)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- [Vercel](https://vercel.com/)
-- [JWT.io](https://jwt.io/)
+Vercel
 
+JWT.io
