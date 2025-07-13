@@ -81,15 +81,15 @@ npm install
 npm run dev
 Now open your browser and visit:
 http://localhost:5173
-
-🚀 Deployment
+---
+##🚀 Deployment
 Frontend: Vercel
 
 Backend: Render
 
 Database: MongoDB Atlas
 
-✨ Roadmap / Future Improvements
+###✨ Roadmap / Future Improvements
 🔍 Add search functionality
 
 🌙 Dark mode toggle
@@ -100,13 +100,13 @@ Database: MongoDB Atlas
 
 📊 Admin dashboard for analytics
 
-👤 Author
+##👤 Author
 Ezhilarasu G
 
 📝 License
 This project is open-source and available under the MIT License.
 
-🙏 Acknowledgements
+##🙏 Acknowledgements
 React
 
 Express
