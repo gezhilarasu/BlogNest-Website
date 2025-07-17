@@ -50,6 +50,7 @@
   list-style: none;
 }
 
+
 .fav-link {
   text-decoration: none;
   color: #ffffff;
@@ -157,39 +158,48 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
+.user-dropdown-container {
+  width: 100%;
+}
+
 /* User dropdown menu */
+/* Avatar wrapper should be relative for positioning */
+.avatar-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Base dropdown: used in desktop view */
 .user-dropdown {
   position: absolute;
   top: 55px;
   right: 0;
-  min-width: 150px;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  z-index: 1010;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px 16px;
+  z-index: 1050;
   animation: fadeIn 0.2s ease-in-out;
+  white-space: nowrap;
 }
 
 .logout-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 12px 20px;
-  color: #333;
-  font-weight: 600;
   background: none;
   border: none;
+  color: #333;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
+  font-size: 0.95rem;
 }
 
 .logout-btn:hover {
   background: #f0f0f0;
   color: #ff5252;
+  border-radius: 5px;
 }
+
 
 .logout-icon {
   font-size: 1.2rem;
@@ -222,6 +232,12 @@
     top: 0;
   }
 
+  .user-dropdown {
+    top: 0;
+    left: 60px;
+    right: auto;
+  }
+  
   .navbar-nav1 {
     position: absolute;
     top: 50px; /* Position below smaller navbar */
@@ -240,11 +256,17 @@
 
   .navbar-nav1.active {
     display: flex;
+
   }
 
-  /* Order items in mobile menu */
+
   .nav-item3 {
-    order: 1; /* User profile at the top */
+    order: 1;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+
+
   }
   
   .nav-item2:has(.new-post-btn) {
@@ -279,6 +301,7 @@
   .navbar1 {
     padding: 0 20px; /* Maintain reduced padding */
   }
+  
   
   .nav-item1 {
     font-size: 1.5rem; /* Maintain reduced size */

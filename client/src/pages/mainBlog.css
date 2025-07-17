@@ -96,7 +96,7 @@
 
 /* Modern Header with Glassmorphism */
 header {
-  padding: clamp(3rem, 8vh, 6rem) 0 clamp(2rem, 4vh, 3rem);
+  padding-top:40px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -741,9 +741,6 @@ header::before {
     gap: clamp(1rem, 3vw, 1.5rem);
   }
   
-  .hero-title {
-    margin-bottom: 1rem;
-  }
   
   .card-image {
     height: 240px;
@@ -852,4 +849,31 @@ header::before {
   display: flex;
   align-items: center;
   color: #e25555;
+}
+
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  background-color: #e2e8f0;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filter-btn.active {
+  background-color: #667eea;
+  color: white;
+}
+
+.filter-btn:hover {
+  background-color: #5a67d8;
+  color: white;
 }

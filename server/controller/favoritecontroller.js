@@ -2,10 +2,9 @@ const { Favorite } = require('../models/models');
 
 const addFavorite = async (req, res) => {
     const postId = req.params.postId;
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     try {
-        
         const alreadyExists = await Favorite.findOne({ userId, postId });
         if (alreadyExists) {
             return res.status(400).json({ message: "Post already favorited" });
@@ -25,7 +24,7 @@ const addFavorite = async (req, res) => {
 
 const deleteFavorite = async (req, res) => {
     const postId = req.params.postId;
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     try {
         const existingFavorite = await Favorite.findOneAndDelete({ userId, postId });
@@ -43,7 +42,7 @@ const deleteFavorite = async (req, res) => {
 
 
 const getFavoritePosts = async (req, res) => {
-  const userId = req.user.userId;
+  const userId = req.user.id;
 
   try {
     // Step 1: Get favorite docs by userId and populate post info

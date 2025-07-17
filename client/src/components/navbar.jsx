@@ -10,11 +10,15 @@ const Navbar = () => {
   const navRef = useRef(null);
 
   const handleNavClick1 = (section) => {
+    navigate('/favorite');
+    setMenuOpen(false);
+  };
+  const handleNavClick2 = (section) => {
     navigate('/createpost');
     setMenuOpen(false);
   };
   
-  const handleNavClick2 = (section) => {
+  const handleNavClick3 = (section) => {
     navigate('/myposts');
     setMenuOpen(false);
   };
@@ -84,32 +88,31 @@ const Navbar = () => {
             </button>
           </li>
           <li className="nav-item2">
-            <button className="fav-link new-post-btn" onClick={() => handleNavClick1('new-post')}>
+            <button className="fav-link new-post-btn" onClick={() => handleNavClick2('new-post')}>
               <span className="link-icon">✨</span>
               NEW POST +
             </button>
           </li>
           <li className="nav-item2">
-            <button className="fav-link" onClick={() => handleNavClick2('your-posts')}>
+            <button className="fav-link" onClick={() => handleNavClick3('your-posts')}>
               <span className="link-icon">📝</span>
               YOUR POSTS
             </button>
           </li>
-          <li className="nav-item3" ref={dropdownRef}>
-            <div className="profile-avatar" title="Profile" onClick={toggleDropdown}>
-              <span>{userEmail.charAt(0).toUpperCase()}</span>
-              
-              {/* Dropdown Menu */}
-              {dropdownOpen && (
-                <div className="user-dropdown">
-                  <button className="logout-btn" onClick={handleLogout}>
-                    <span className="logout-icon">🚪</span>
-                    Logout
-                  </button>
-                </div>
-              )}
+          <li className="nav-item3 avatar-wrapper" ref={dropdownRef}>
+          <div className="profile-avatar" title="Profile" onClick={toggleDropdown}>
+            <span>{userEmail.charAt(0).toUpperCase()}</span>
+          </div>
+
+          {dropdownOpen && (
+            <div className="user-dropdown">
+              <button className="logout-btn" onClick={handleLogout}>
+                <span className="logout-icon">🚪</span>
+                Logout
+              </button>
             </div>
-          </li>
+          )}
+        </li>
         </ul>
       </nav>
     </div>

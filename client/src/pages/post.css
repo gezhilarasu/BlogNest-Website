@@ -39,6 +39,8 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    margin-left: 150px;
+
     
 }
 
@@ -360,11 +362,9 @@
 }
 
 .create-post-description {
-    display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-left: 0;
     text-align: center;
 }
 
@@ -375,9 +375,14 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 720px) {
     .create-post-description {
         padding: 0 0.5rem;
         font-size: 0.9rem;
     }
+    .create-post-form {
+    margin-left: 5px;
+
+    
+}
 }

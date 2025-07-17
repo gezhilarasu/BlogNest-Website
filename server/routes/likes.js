@@ -2,8 +2,8 @@ const express=require('express');
 const route=express.Router();
 const verifyToken=require('../middleware/verify_token');
 
-const { incrementLike } = require('../controller/likescontroller');
+const { toggleLikePost } = require('../controller/likescontroller');
 
-route.patch('/likeincrement/:id',verifyToken,incrementLike);
+route.put('/toggleLikePost/:postId',verifyToken,toggleLikePost);
 module.exports=route;
 
