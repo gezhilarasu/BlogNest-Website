@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './login.css';
+import './Login.css';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -9,7 +9,7 @@ function Login() {
 
   const handleLogin =async (e) => {
         e.preventDefault();
-        const response=await fetch('http://localhost:5000/api/auth/login', {
+        const response=await fetch('https://blognest-website.onrender.com/api/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

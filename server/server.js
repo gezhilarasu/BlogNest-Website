@@ -13,7 +13,13 @@ mongoose.connect(process.env.MONGODB_KEY,{
     console.error("MongoDB connection error:", error);
 });
 const app=express();
-app.use(cors());
+
+
+app.use(cors({
+  origin: 'https://blognest1.vercel.app',
+  credentials: true  // optional: only if you're using cookies or sessions
+}));
+
 app.use(express.json())
 
 const authRoutes=require('./routes/auth');

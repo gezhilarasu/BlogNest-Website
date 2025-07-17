@@ -11,7 +11,7 @@ function MyPosts() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/post/mypost', {
+        const response = await fetch('https://blognest-website.onrender.com/api/post/mypost', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('BlogNest_token')}`,
@@ -46,7 +46,7 @@ function MyPosts() {
 
     try {
       console.log('Sending DELETE request for post ID:', postId); // Add this line
-      const response = await fetch(`http://localhost:5000/api/post/deletepost/${postId}`, {
+      const response = await fetch(`https://blognest-website.onrender.com/api/post/deletepost/${postId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('BlogNest_token')}`,
@@ -105,7 +105,7 @@ const getImageUrl = (imageData) => {
   try {
     // If it's already a string URL, return as is
     if (typeof imageData === 'string') {
-      return imageData.startsWith('http') ? imageData : `http://localhost:5000${imageData}`;
+      return imageData.startsWith('http') ? imageData : `https://blognest-website.onrender.com${imageData}`;
     }
     
     // Handle Buffer or binary data object
@@ -264,10 +264,10 @@ const getImageUrl = (imageData) => {
                           </p>
                           <div className="card-meta">
                               <div className="likes-count">
-                                ❤️ {postItem.likes?.length || 0} likes
+                                ❤️ {postItem.likes} likes
                               </div>
                               <div className="views-count">
-                                      👁️ {postItem.views || 0} views
+                                      👁️ {postItem.views} views
                                   </div>
                               <div className="post-time">
                                 {postItem.createdAt ? getTimeAgo(postItem.createdAt) : 'Recently'}
