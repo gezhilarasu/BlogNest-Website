@@ -31,7 +31,6 @@ const userSchema = new mongoose.Schema({
 });
 
 
-
 const pendingUserSchema = new mongoose.Schema({
   name: String,
   email: {

@@ -27,7 +27,7 @@ const registerUser=async(req,res)=>{
                 otp,
                 otpExpiresAt: Date.now() + 2 * 60 * 1000 // 2 minutes
         });
-        pendingUser.save();
+        await pendingUser.save();
 
         const transport=nodemailer.createTransport({
             service:'gmail',
