@@ -17,7 +17,7 @@ function Register()
             return;
         }
         try{
-                const response= await fetch('https://blognest-website.onrender.com/api/auth/register',{
+                const response= await fetch('http://localhost:5000/api/auth/register',{
                     method:'POST', 
                     headers:{
                         'Content-Type':'application/json',
@@ -30,6 +30,7 @@ function Register()
                 )
             
             });
+            const data = await response.json();
             if(response.ok){
                 alert("Registration successful");
                 // Redirect to login or home page
@@ -37,7 +38,7 @@ function Register()
                 navigate('/otp', { state: { email } }); 
             }
             else{
-                alert("Registration failed");
+                   alert(data.message);
             }
         }
         catch(error){
