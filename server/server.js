@@ -16,7 +16,7 @@ const app=express();
 
 
 app.use(cors({
-  origin: 'http://blognest1.vercel.app',
+  origin: 'https://blog-nest-website.vercel.app/',
   credentials: true  // optional: only if you're using cookies or sessions
 }));
 
