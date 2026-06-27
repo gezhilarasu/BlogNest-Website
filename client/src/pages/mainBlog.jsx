@@ -25,7 +25,7 @@ function Blog() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/post/allpost', {
+        const response = await fetch('https://blognest-website.onrender.com/api/post/allpost', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('BlogNest_token')}`,
@@ -73,7 +73,7 @@ function Blog() {
     if (!imageData) return null;
     try {
       if (typeof imageData === 'string') {
-        return imageData.startsWith('http') ? imageData : `http://localhost:5000${imageData}`;
+        return imageData.startsWith('http') ? imageData : `https://blognest-website.onrender.com${imageData}`;
       }
 
       if (imageData.data && imageData.contentType) {

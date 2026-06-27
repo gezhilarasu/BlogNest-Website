@@ -21,7 +21,7 @@ function ResetPassword()
             alert("password does not match");
         }
 
-        const response=await fetch('http://localhost:5000/api/auth/verify-otp-reset',{
+        const response=await fetch('https://blognest-website.onrender.com/api/auth/verify-otp-reset',{
             method:'POST',
             headers: {
           'Content-Type': 'application/json'

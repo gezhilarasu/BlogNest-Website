@@ -103,7 +103,7 @@ const CreatePost = () => {
 
             console.log('Making request with token:', token); // Debug log
 
-            const response = await fetch('http://localhost:5000/api/post/createpost', {
+            const response = await fetch('https://blognest-website.onrender.com/api/post/createpost', {
                 method: 'POST',
                 body: submitData,
                 headers: {
