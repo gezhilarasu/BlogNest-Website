@@ -3,56 +3,70 @@ const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const nodemailer=require('nodemailer');
 require('dotenv').config();
+const axios = require('axios');
 
 
-const registerUser=async(req,res)=>{
-    const {name,email,password}=req.body;
-    console.log("Registering user:", { name, email });
-    try{
-        const existingUser=await User.findOne({email});
-
-        if(existingUser)
-        {
-            return res.status(400).json({message:"User already exists"});
-        }
-
-        const hashedPassword=await bcrypt.hash(password,10);
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log("OTP:", otp);
-
-        const pendingUser = new PendingUser({
-                name,
-                email,
-                password: hashedPassword,
-                otp,
-                otpExpiresAt: Date.now() + 2 * 60 * 1000 // 2 minutes
-        });
-        await pendingUser.save();
-
-        const transport=nodemailer.createTransport({
-            service:'gmail',
-            auth:{
-                user:process.env.EMAIL,
-                pass:process.env.PASSWORD
-            }
-        });
-        const mailOptions={
-            from:process.env.EMAIL,
-            to:email,
-            subject:'Verify your email',
-            text:`Your OTP is ${otp}. It is valid for 2 minutes.`
-        }
-        await transport.sendMail(mailOptions); 
-
-        return res.status(200).json({message:"Otp is send successfully, please verify your email"});
-
-    }
-    catch(error)
+// ─── Helper function ───────────────────────────────────────────────────────
+const sendEmail = async (toEmail, subject, text) => {
+  await axios.post(
+    'https://api.brevo.com/v3/smtp/email',
     {
-        console.error(error);
-        return res.status(500).json({message:"Internal server error"});
+      sender: {
+        name: 'BlogNest',
+        email: 'gezhil24@gmail.com', // your verified Brevo sender email
+      },
+      to: [{ email: toEmail }],
+      subject: subject,
+      textContent: text,
+    },
+    {
+      headers: {
+        'api-key': process.env.BREVO_API_KEY,
+        'Content-Type': 'application/json',
+      },
     }
-}
+  );
+};
+
+
+// ─── Register User ─────────────────────────────────────────────────────────
+const registerUser = async (req, res) => {
+  const { name, email, password } = req.body;
+  console.log("Registering user:", { name, email });
+  try {
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    console.log("OTP:", otp);
+
+    const pendingUser = new PendingUser({
+      name,
+      email,
+      password: hashedPassword,
+      otp,
+      otpExpiresAt: Date.now() + 2 * 60 * 1000,
+    });
+    await pendingUser.save();
+
+    await sendEmail(
+      email,
+      'Verify your email',
+      `Your OTP is ${otp}. It is valid for 2 minutes.`
+    );
+
+    return res.status(200).json({ message: "OTP sent successfully, please verify your email" });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 
 const verifyOtp_register = async (req, res) => {
   const {otp,email}  = req.body;
@@ -112,6 +126,7 @@ const loginUser=async(req,res)=>{
     }
 }
 
+// ─── Password Reset ────────────────────────────────────────────────────────
 const password_reset = async (req, res) => {
   const { email } = req.body;
 
@@ -123,7 +138,7 @@ const password_reset = async (req, res) => {
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpExpiry = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes from now
+    const otpExpiry = new Date(Date.now() + 2 * 60 * 1000);
 
     existingUser.otp = otp;
     existingUser.otpExpiry = otpExpiry;
@@ -131,17 +146,14 @@ const password_reset = async (req, res) => {
 
     console.log(`OTP for ${email} is ${otp}`);
 
-    const transport = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL,
-            pass: process.env.PASSWORD
-        }
-        });
-    const mailOptions = {from: process.env.EMAIL, to: email, subject: 'Password Reset OTP', text: `Your OTP for password reset is ${otp}. It is valid for 2 minutes.` };        
-    await transport.sendMail(mailOptions);
+    await sendEmail(
+      email,
+      'Password Reset OTP',
+      `Your OTP for password reset is ${otp}. It is valid for 2 minutes.`
+    );
 
     return res.status(200).json({ message: "OTP sent to your email" });
+
   } catch (err) {
     console.error("Error in password reset:", err);
     return res.status(500).json({ message: "Server error" });
