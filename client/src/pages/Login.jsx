@@ -21,7 +21,6 @@ function Login() {
       });
       const data=await response.json();
       if(response.ok){
-          const data=await response.json();
            console.log(data.token);
           localStorage.setItem('BlogNest_token', data.token);
           localStorage.setItem('BlogNest_username',email); // Store username
